@@ -25,3 +25,5 @@ dist-ssr
 
 .yarn/unplugged
 .yarn/build-state.yml
+
+/build

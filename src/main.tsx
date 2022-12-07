@@ -24,7 +24,6 @@ const queryClient = new QueryClient({
   },
 });
 
-console.log("Getting here?");
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>

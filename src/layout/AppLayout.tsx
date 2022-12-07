@@ -1,18 +1,16 @@
 import { Header } from "components/layout/Header";
 import { ReactNode } from "react";
+import { Outlet } from "react-router";
 
-interface Props {
-  children: ReactNode;
-}
-
-export function AppLayout(props: Props) {
-  const { children } = props;
+export function AppLayout() {
   return (
     <>
       <header>
         <Header />
       </header>
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 }

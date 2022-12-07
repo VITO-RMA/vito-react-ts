@@ -4,6 +4,7 @@ import { Close } from "@mui/icons-material";
 import { SnackbarKey, SnackbarProvider } from "notistack";
 import { Route, Routes } from "react-router";
 import { AppPage } from "./AppPage";
+import { AppLayout } from "layout/AppLayout";
 
 export function RootPage() {
   const notistackRef = useRef<SnackbarProvider | null>(null);
@@ -12,8 +13,6 @@ export function RootPage() {
       notistackRef.current.closeSnackbar(key);
     }
   }
-
-  console.log("?");
 
   return (
     <SnackbarProvider
@@ -27,7 +26,9 @@ export function RootPage() {
       )}
     >
       <Routes>
-        <Route path="/" element={<AppPage />} />
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<AppPage />} />
+        </Route>
       </Routes>
     </SnackbarProvider>
   );

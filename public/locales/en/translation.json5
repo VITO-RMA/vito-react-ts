@@ -6,6 +6,7 @@
     name: 'Name',
     message: 'Message',
     stacktrace: 'Stacktrace',
+    loading: 'Loading...',
   },
   title: 'VITO',
 }

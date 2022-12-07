@@ -7,6 +7,7 @@
     name: 'Naam',
     message: 'Bericht',
     stacktrace: 'Stacktrace',
+    loading: 'Laden...',
   },
   title: 'VITO',
 }

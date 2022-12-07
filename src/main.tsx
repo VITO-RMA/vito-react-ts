@@ -12,6 +12,7 @@ import { AppGlobalStyles } from "config/AppGlobalStyles";
 
 import { RootPage } from "pages/RootPage";
 import { GlobalErrorFallBack } from "components/boundary/GlobalErrorFallBack";
+import { FullScreenLoader } from "components/loader/FullScreenLoader";
 
 bootstrap();
 
@@ -27,7 +28,7 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<FullScreenLoader />}>
         <CssBaseline />
         <AppGlobalStyles />
         <QueryClientProvider client={queryClient}>

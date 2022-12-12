@@ -13,7 +13,7 @@
 
 #### Step 3 - Install yarn 3 (if needed)
 
-```yarn use version stable```
+```yarn set version stable```
 
 #### Step 4 - To support features like go-to-definition a plugin like ZipFS is needed.
 

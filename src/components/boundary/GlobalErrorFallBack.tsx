@@ -14,8 +14,9 @@ import {
 } from "@mui/material";
 import { FallbackProps } from "react-error-boundary";
 import JSONPretty from "react-json-pretty";
-import { useTranslation } from "react-i18next";
 import axios from "axios";
+
+import { useTranslation } from "react-i18next";
 
 export function GlobalErrorFallBack(props: FallbackProps) {
   const { error, resetErrorBoundary } = props;

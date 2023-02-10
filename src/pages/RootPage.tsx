@@ -1,10 +1,11 @@
-import { useRef, lazy, Suspense } from "react";
+import { useRef } from "react";
 import { IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { SnackbarKey, SnackbarProvider } from "notistack";
-import { Route, Routes } from "react-router";
-import { AppPage } from "./AppPage";
+import { Route, Routes } from "react-router-dom";
+
 import { AppLayout } from "layout/AppLayout";
+import { AppPage } from "pages/AppPage";
 
 export function RootPage() {
   const notistackRef = useRef<SnackbarProvider | null>(null);

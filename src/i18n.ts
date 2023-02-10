@@ -11,7 +11,7 @@ const VERSION = "0.1.1";
 
 const CacheBackendOptions = {
   prefix: `i18next_${import.meta.env.VITE_NAME || "_te"}_${
-    import.meta.env.VITE_VERSION || ""
+    import.meta.env.VITE_APP_VERSION || ""
   }_`,
   expirationTime: 7 * 24 * 60 * 60 * 1000,
   defaultVersion: VERSION,

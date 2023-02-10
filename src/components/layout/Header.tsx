@@ -1,10 +1,11 @@
 import { AppBar, styled, Toolbar, Typography } from "@mui/material";
+
 import { useTranslation } from "react-i18next";
 
 export function Header() {
   const { t } = useTranslation();
   return (
-    <StyledAppBar>
+    <StyledAppBar component="header">
       <Toolbar>
         <Typography>{t("title")}</Typography>
       </Toolbar>
@@ -12,4 +13,4 @@ export function Header() {
   );
 }
 
-const StyledAppBar = styled(AppBar)``;
+const StyledAppBar = styled(AppBar)`` as unknown as typeof AppBar;

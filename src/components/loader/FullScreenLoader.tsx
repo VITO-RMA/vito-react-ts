@@ -1,4 +1,5 @@
 import { Box, CircularProgress, styled } from "@mui/material";
+
 import { useTranslation } from "react-i18next";
 
 export function FullScreenLoader() {

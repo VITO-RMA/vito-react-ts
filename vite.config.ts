@@ -14,6 +14,10 @@ export default defineConfig({
       "/geoserver": "https://XXXXXX.marvintest.vito.be/",
     },
   },
+  define: {
+    VITE_APP_VERSION: JSON.stringify(process.env.npm_package_version),
+    VITE_APP_RELEASE_DATE: JSON.stringify(process.env.npm_package_date),
+  },
   plugins: [
     react(),
     svgrPlugin(),

@@ -7,7 +7,9 @@ export function Header() {
   return (
     <StyledAppBar component="header">
       <Toolbar>
-        <Typography>{t("title")}</Typography>
+        <Typography>{t("title")}</Typography> -{" "}
+        <Typography>{VITE_APP_VERSION}</Typography> -{" "}
+        <Typography>{VITE_APP_DATE}</Typography>
       </Toolbar>
     </StyledAppBar>
   );

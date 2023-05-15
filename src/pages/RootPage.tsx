@@ -21,7 +21,7 @@ export function RootPage() {
       ref={notistackRef}
       autoHideDuration={5000}
       action={(key: SnackbarKey) => (
-        <IconButton onClick={() => onClickDismiss(key)}>
+        <IconButton onClick={() => onClickDismiss(key)} color="inherit">
           <Close />
         </IconButton>
       )}

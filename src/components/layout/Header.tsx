@@ -9,7 +9,7 @@ export function Header() {
       <Toolbar>
         <Typography>{t("title")}</Typography> -{" "}
         <Typography>{VITE_APP_VERSION}</Typography> -{" "}
-        <Typography>{VITE_APP_DATE}</Typography>
+        <Typography>{VITE_APP_RELEASE_DATE}</Typography>
       </Toolbar>
     </StyledAppBar>
   );

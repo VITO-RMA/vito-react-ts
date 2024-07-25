@@ -31,7 +31,7 @@ export const AppGlobalStyles = () => {
           }
           body,
           html {
-            scrollbar-width: "thin";
+            scrollbar-width: thin;
             scrollbar-color: ${theme.palette.primary.main +
             " " +
             theme.palette.background.default};

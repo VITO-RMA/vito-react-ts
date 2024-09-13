@@ -13,7 +13,6 @@ interface TextColors {
 }
 
 export const theme = (() => {
-  const { _env_ } = window;
   const sansFont =
     "Avenir LT Std, avenir next, avenir,-apple-system, BlinkMacSystemFont, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif";
 

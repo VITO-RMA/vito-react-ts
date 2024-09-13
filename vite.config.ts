@@ -8,7 +8,6 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 export default defineConfig({
   build: { outDir: "build" },
   server: {
-    https: true,
     proxy: {
       "/api": "https://XXXXXX.marvintest.vito.be/",
       "/geoserver": "https://XXXXXX.marvintest.vito.be/",

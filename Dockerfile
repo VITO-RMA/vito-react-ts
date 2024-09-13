@@ -1,5 +1,5 @@
 # stage 1: build image
-FROM node:20.9.0-alpine3.18 as builder
+FROM node:22.8.0-alpine3.19 as builder
 
 RUN apk add --no-cache git
 

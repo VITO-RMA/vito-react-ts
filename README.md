@@ -11,6 +11,10 @@
 
 ``` degit https://github.com/VITO-RMA/vito-react-ts.git my-new-vite-project ```
 
+##### With Yarn v3
+
+```yarn dlx degit https://github.com/VITO-RMA/vito-react-ts.git project_name_frontend```
+
 #### Step 3 - Install yarn 3 (if needed)
 
 ```yarn set version stable```

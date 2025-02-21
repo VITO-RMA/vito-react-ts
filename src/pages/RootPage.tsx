@@ -1,7 +1,8 @@
 import { useRef } from "react";
-import { IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { SnackbarKey, SnackbarProvider } from "notistack";
+import { IconButton } from "@mui/material";
+import { SnackbarProvider, type SnackbarKey } from "notistack";
+
 import { Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "layout/AppLayout";

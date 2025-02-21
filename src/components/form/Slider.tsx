@@ -3,9 +3,9 @@ import {
   FormControl,
   FormHelperText,
   Slider as MuiSlider,
-  SliderProps,
+  type SliderProps,
 } from "@mui/material";
-import type { DeepKeys, FieldApi, Validator } from "@tanstack/react-form";
+import type { DeepKeys, FieldApi,  } from "@tanstack/react-form";
 
 // type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 // interface SliderProps
@@ -18,7 +18,7 @@ type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
 > & {
   name: TName;
   helperText?: ReactNode;
-  fieldApi: FieldApi<TFormData, TName, undefined, Validator<TFormData>, any>;
+  fieldApi: FieldApi<TFormData, TName>;
 };
 export function Slider<TFormData extends {}, TName extends DeepKeys<TFormData>>(
   props: Props<TFormData, TName>
@@ -36,7 +36,6 @@ export function Slider<TFormData extends {}, TName extends DeepKeys<TFormData>>(
         {...sliderProps}
         value={state.value}
         onChange={(e, value: number | number[], activeThumb: number) => {
-          // @ts-ignore FIXME: typing!
           handleChange(value);
           if (onChange !== undefined) onChange(e, value, activeThumb);
         }}

@@ -32,9 +32,7 @@ export const AppGlobalStyles = () => {
           body,
           html {
             scrollbar-width: thin;
-            scrollbar-color: ${theme.palette.primary.main +
-            " " +
-            theme.palette.background.default};
+            scrollbar-color: ${`${theme.palette.primary.main} ${theme.palette.background.default}`};
           }
           svg {
             fill: currentColor;
@@ -42,20 +40,12 @@ export const AppGlobalStyles = () => {
           body,
           #app,
           #root {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            & > * {
-              flex: 1 1 100%;
-            }
+            min-height: 100dvh;
             header {
               flex: 0 1 100%;
               z-index: ${theme.zIndex.drawer + 1};
             }
             main {
-              flex: 1 1 100%;
-              display: flex;
               position: relative;
             }
           }

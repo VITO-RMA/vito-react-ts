@@ -1,24 +1,24 @@
-import { Box, CircularProgress, styled } from "@mui/material";
+import { CircularProgress, styled } from "@mui/material";
 
 import { useTranslation } from "react-i18next";
 
 export function FullScreenLoader() {
   const { t } = useTranslation();
   return (
-    <StyledBox>
+    <Styles>
       <CircularProgress />
       {t("label.loading")}
-    </StyledBox>
+    </Styles>
   );
 }
 
-const StyledBox = styled(Box)`
+const Styles = styled("div")`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing(1)};
 `;

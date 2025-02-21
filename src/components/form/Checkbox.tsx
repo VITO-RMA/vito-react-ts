@@ -7,10 +7,9 @@ import {
   type CheckboxProps,
   type FormControlLabelProps,
 } from "@mui/material";
-import {
-  type DeepKeys,
-  type FieldApi,
-  type Validator,
+import type {
+  DeepKeys,
+  FieldApi,
 } from "@tanstack/react-form";
 
 type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<

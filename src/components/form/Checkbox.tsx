@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import type {
   DeepKeys,
-  FieldApi,
+  DeepValue
 } from "@tanstack/react-form";
+import type { IFieldApi } from "types/form";
 
 type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
   CheckboxProps,
@@ -20,14 +21,7 @@ type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
     name: TName;
     label?: ReactNode;
     helperText?: ReactNode;
-    fieldApi: FieldApi<
-      TFormData,
-      TName,
-      undefined,
-      Validator<TFormData>,
-      //@ts-ignore
-      boolean
-    >;
+    fieldApi: IFieldApi<TFormData, TName,DeepValue<TFormData, TName>>;
   };
 
 export function Checkbox<

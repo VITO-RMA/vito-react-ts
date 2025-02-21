@@ -1,7 +1,9 @@
+
 export function AppPage() {
+
   return (
     <div>
-      lol
+      AppPage
     </div>
   );
 }

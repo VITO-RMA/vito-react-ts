@@ -1,16 +1,16 @@
 import { TextField as MuiTextField, type TextFieldProps } from "@mui/material";
 import {
   type DeepKeys,
-  type FieldApi,
-  type Validator,
+  type DeepValue,
 } from "@tanstack/react-form";
+import type { IFieldApi } from "types/form";
 
 type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
   TextFieldProps,
   "name"
 > & {
   name: TName;
-  fieldApi: FieldApi<TFormData, TName, undefined, Validator<TFormData>, any>;
+  fieldApi: IFieldApi<TFormData, TName,DeepValue<TFormData, TName>>;
 };
 
 export function TextField<

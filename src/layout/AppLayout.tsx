@@ -1,7 +1,9 @@
+import { styled } from "@mui/material";
+
 import { Outlet } from "react-router-dom";
 
+import { mixinTransform } from "utils/CSSUtil";
 import { Header } from "components/layout/Header";
-import { styled } from "@mui/material";
 
 export function AppLayout() {
   return (
@@ -15,9 +17,13 @@ export function AppLayout() {
 }
 
 const Styles = styled("main")`
-display: grid;
-grid-template-columns: 1fr;
-grid-template-rows: 1fr;
-background-color: pink;
-
-`
+  ${({ theme }) =>
+    mixinTransform(theme.mixins.toolbar, "minHeight", "marginTop")};
+  ${({ theme }) =>
+    mixinTransform(theme.mixins.toolbar, "minHeight", "height", (l) => {
+      return `calc(100dvh - ${l}px);`;
+    })};
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+`;

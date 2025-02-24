@@ -1,10 +1,9 @@
+import { MapContent } from "components/map/MapContent";
 
 export function AppPage() {
 
   return (
-    <div>
-      AppPage
-    </div>
+  <MapContent />
   );
 }
 

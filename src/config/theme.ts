@@ -1,9 +1,9 @@
 import {
   createTheme,
-  SimplePaletteColorOptions,
-  ThemeOptions,
+  type SimplePaletteColorOptions,
+  type ThemeOptions,
 } from "@mui/material/styles";
-import { CommonColors } from "@mui/material/styles/createPalette";
+import type { CommonColors } from "@mui/material/styles/createPalette";
 
 interface TextColors {
   primary: string;
@@ -23,7 +23,7 @@ export const theme = (() => {
     white: "#fff",
   };
   const primary: SimplePaletteColorOptions = {
-    main: "#32a2db",
+    main: "#475a74",
   };
   const themeColors: SimplePaletteColorOptions = {
     main: "#292929",

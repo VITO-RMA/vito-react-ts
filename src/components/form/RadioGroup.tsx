@@ -5,9 +5,9 @@ import {
   RadioGroup as MuiRadioGroupProps,
   type RadioGroupProps,
 } from "@mui/material";
-import {
-  type DeepKeys,
-  type DeepValue,
+import type {
+  DeepKeys,
+  DeepValue,
 } from "@tanstack/react-form";
 import type { IFieldApi } from "types/form";
 

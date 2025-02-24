@@ -1,7 +1,7 @@
 import { TextField as MuiTextField, type TextFieldProps } from "@mui/material";
-import {
-  type DeepKeys,
-  type DeepValue,
+import type {
+  DeepKeys,
+  DeepValue,
 } from "@tanstack/react-form";
 import type { IFieldApi } from "types/form";
 

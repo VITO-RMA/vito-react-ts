@@ -546,6 +546,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/types@npm:^7.19.0":
+  version: 7.26.9
+  resolution: "@babel/types@npm:7.26.9"
+  dependencies:
+    "@babel/helper-string-parser": "npm:^7.25.9"
+    "@babel/helper-validator-identifier": "npm:^7.25.9"
+  checksum: 10/11b62ea7ed64ef7e39cc9b33852c1084064c3b970ae0eaa5db659241cfb776577d1e68cbff4de438bada885d3a827b52cc0f3746112d8e1bc672bb99a8eb5b56
+  languageName: node
+  linkType: hard
+
 "@babel/types@npm:^7.22.5":
   version: 7.22.5
   resolution: "@babel/types@npm:7.22.5"
@@ -2153,6 +2163,15 @@ __metadata:
     cosmiconfig: "npm:^7.0.0"
     resolve: "npm:^1.19.0"
   checksum: 10/30be6ca45e9a124c58ca00af9a0753e5410ec0b79a737714fc4722bbbeb693e55d9258f05c437145ef4a867c2d1603e06a1c292d66c243ce1227458c8ea2ca8c
+  languageName: node
+  linkType: hard
+
+"babel-plugin-react-compiler@npm:19.0.0-beta-21e868a-20250216":
+  version: 19.0.0-beta-21e868a-20250216
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-21e868a-20250216"
+  dependencies:
+    "@babel/types": "npm:^7.19.0"
+  checksum: 10/b3110312fd68329712b4311b07c7389756d3adfa69b0c285f9f7694b6ecbdebf0e5a74effe2c79ebcf1569a0d17c7a9e365dd07a4d8ee97a635126630bd702c8
   languageName: node
   linkType: hard
 
@@ -4997,6 +5016,7 @@ __metadata:
     "@vitejs/plugin-basic-ssl": "npm:^1.2.0"
     "@vitejs/plugin-react": "npm:^4.3.4"
     axios: "npm:^1.7.9"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-21e868a-20250216"
     i18next: "npm:^24.2.2"
     i18next-chained-backend: "npm:^4.6.2"
     i18next-http-backend: "npm:^3.0.2"

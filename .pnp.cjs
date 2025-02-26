@@ -41,6 +41,7 @@ const RAW_RUNTIME_STATE =
           ["@vitejs/plugin-basic-ssl", "virtual:b520cb46b34f9ece04ef506105d8f91152c0d08eb58007e27d4157c5ea9fe98ac93e3b1873c738a4330d3d8c8d38ec35fe2a11b15e2d6df2824e321013fef0b5#npm:1.2.0"],\
           ["@vitejs/plugin-react", "virtual:b520cb46b34f9ece04ef506105d8f91152c0d08eb58007e27d4157c5ea9fe98ac93e3b1873c738a4330d3d8c8d38ec35fe2a11b15e2d6df2824e321013fef0b5#npm:4.3.4"],\
           ["axios", "npm:1.7.9"],\
+          ["babel-plugin-react-compiler", "npm:19.0.0-beta-21e868a-20250216"],\
           ["i18next", "virtual:b520cb46b34f9ece04ef506105d8f91152c0d08eb58007e27d4157c5ea9fe98ac93e3b1873c738a4330d3d8c8d38ec35fe2a11b15e2d6df2824e321013fef0b5#npm:24.2.2"],\
           ["i18next-chained-backend", "npm:4.6.2"],\
           ["i18next-http-backend", "npm:3.0.2"],\
@@ -682,6 +683,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@babel-types-npm-7.26.3-348c6bde15-c31d054963.zip/node_modules/@babel/types/",\
         "packageDependencies": [\
           ["@babel/types", "npm:7.26.3"],\
+          ["@babel/helper-string-parser", "npm:7.25.9"],\
+          ["@babel/helper-validator-identifier", "npm:7.25.9"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.26.9", {\
+        "packageLocation": "./.yarn/cache/@babel-types-npm-7.26.9-ef3f43c2d5-11b62ea7ed.zip/node_modules/@babel/types/",\
+        "packageDependencies": [\
+          ["@babel/types", "npm:7.26.9"],\
           ["@babel/helper-string-parser", "npm:7.25.9"],\
           ["@babel/helper-validator-identifier", "npm:7.25.9"]\
         ],\
@@ -2840,6 +2850,16 @@ const RAW_RUNTIME_STATE =
           ["@babel/runtime", "npm:7.20.6"],\
           ["cosmiconfig", "npm:7.1.0"],\
           ["resolve", "patch:resolve@npm%3A1.22.1#optional!builtin<compat/resolve>::version=1.22.1&hash=c3c19d"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["babel-plugin-react-compiler", [\
+      ["npm:19.0.0-beta-21e868a-20250216", {\
+        "packageLocation": "./.yarn/cache/babel-plugin-react-compiler-npm-19.0.0-beta-21e868a-20250216-ceb1f41306-b3110312fd.zip/node_modules/babel-plugin-react-compiler/",\
+        "packageDependencies": [\
+          ["babel-plugin-react-compiler", "npm:19.0.0-beta-21e868a-20250216"],\
+          ["@babel/types", "npm:7.26.9"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6132,6 +6152,7 @@ const RAW_RUNTIME_STATE =
           ["@vitejs/plugin-basic-ssl", "virtual:b520cb46b34f9ece04ef506105d8f91152c0d08eb58007e27d4157c5ea9fe98ac93e3b1873c738a4330d3d8c8d38ec35fe2a11b15e2d6df2824e321013fef0b5#npm:1.2.0"],\
           ["@vitejs/plugin-react", "virtual:b520cb46b34f9ece04ef506105d8f91152c0d08eb58007e27d4157c5ea9fe98ac93e3b1873c738a4330d3d8c8d38ec35fe2a11b15e2d6df2824e321013fef0b5#npm:4.3.4"],\
           ["axios", "npm:1.7.9"],\
+          ["babel-plugin-react-compiler", "npm:19.0.0-beta-21e868a-20250216"],\
           ["i18next", "virtual:b520cb46b34f9ece04ef506105d8f91152c0d08eb58007e27d4157c5ea9fe98ac93e3b1873c738a4330d3d8c8d38ec35fe2a11b15e2d6df2824e321013fef0b5#npm:24.2.2"],\
           ["i18next-chained-backend", "npm:4.6.2"],\
           ["i18next-http-backend", "npm:3.0.2"],\
@@ -11916,18 +11937,20 @@ Require stack:
     }
     return false;
   };
-  const originalExtensionJSFunction = require$$0.Module._extensions[`.js`];
-  require$$0.Module._extensions[`.js`] = function(module, filename) {
-    if (filename.endsWith(`.js`)) {
-      const pkg = readPackageScope(filename);
-      if (pkg && pkg.data?.type === `module`) {
-        const err = ERR_REQUIRE_ESM(filename, module.parent?.filename);
-        Error.captureStackTrace(err);
-        throw err;
+  if (!process.features.require_module) {
+    const originalExtensionJSFunction = require$$0.Module._extensions[`.js`];
+    require$$0.Module._extensions[`.js`] = function(module, filename) {
+      if (filename.endsWith(`.js`)) {
+        const pkg = readPackageScope(filename);
+        if (pkg && pkg.data?.type === `module`) {
+          const err = ERR_REQUIRE_ESM(filename, module.parent?.filename);
+          Error.captureStackTrace(err);
+          throw err;
+        }
       }
-    }
-    originalExtensionJSFunction.call(this, module, filename);
-  };
+      originalExtensionJSFunction.call(this, module, filename);
+    };
+  }
   const originalDlopen = process.dlopen;
   process.dlopen = function(...args) {
     const [module, filename, ...rest] = args;

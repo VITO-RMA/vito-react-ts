@@ -1,6 +1,6 @@
+import { darken, useTheme } from "@mui/material";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { css } from "@emotion/react";
-import { darken, useTheme } from "@mui/material";
 
 export const AppGlobalStyles = () => {
   const theme = useTheme();
@@ -52,6 +52,12 @@ export const AppGlobalStyles = () => {
           strong,
           strong.MuiTypography-root {
             font-weight: 900;
+          }
+          .mapboxgl-ctrl:empty {
+            display: none;
+          }
+          .maplibregl-ctrl button:not(:disabled):hover {
+            background-color: inherit;
           }
         `.styles
       }

@@ -6,10 +6,8 @@ import {
   Select as MuiSelect,
   type SelectProps,
 } from "@mui/material";
-import {
-  type DeepKeys,
-  type DeepValue,
-} from "@tanstack/react-form";
+import { type DeepKeys, type DeepValue } from "@tanstack/react-form";
+
 import type { IFieldApi } from "types/form";
 
 type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
@@ -17,7 +15,7 @@ type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
   "name"
 > & {
   name: TName;
-  fieldApi: IFieldApi<TFormData, TName,DeepValue<TFormData, TName>>;
+  fieldApi: IFieldApi<TFormData, TName, DeepValue<TFormData, TName>>;
   helperText?: ReactNode;
 };
 
@@ -68,7 +66,9 @@ export function Select<TFormData extends {}, TName extends DeepKeys<TFormData>>(
       />
       {(isError || helperText) && (
         <FormHelperText>
-          {isError ? state.meta.errors.join(", ") : helperText}
+          {isError
+            ? state.meta.errors.map((e) => e?.message || "").join(", ")
+            : helperText}
         </FormHelperText>
       )}
     </FormControl>

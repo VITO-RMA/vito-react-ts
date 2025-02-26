@@ -7,10 +7,8 @@ import {
   type CheckboxProps,
   type FormControlLabelProps,
 } from "@mui/material";
-import type {
-  DeepKeys,
-  DeepValue
-} from "@tanstack/react-form";
+import type { DeepKeys, DeepValue } from "@tanstack/react-form";
+
 import type { IFieldApi } from "types/form";
 
 type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
@@ -21,7 +19,7 @@ type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
     name: TName;
     label?: ReactNode;
     helperText?: ReactNode;
-    fieldApi: IFieldApi<TFormData, TName,DeepValue<TFormData, TName>>;
+    fieldApi: IFieldApi<TFormData, TName, DeepValue<TFormData, TName>>;
   };
 
 export function Checkbox<
@@ -66,7 +64,9 @@ export function Checkbox<
         label={label}
       />
       <FormHelperText>
-        {isError ? state.meta.errors.join(", ") : helperText}
+        {isError
+          ? state.meta.errors.map((e) => e?.message || "").join(", ")
+          : helperText}
       </FormHelperText>
     </FormControl>
   );

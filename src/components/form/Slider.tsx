@@ -5,7 +5,8 @@ import {
   Slider as MuiSlider,
   type SliderProps,
 } from "@mui/material";
-import type { DeepKeys, DeepValue,  } from "@tanstack/react-form";
+import type { DeepKeys, DeepValue } from "@tanstack/react-form";
+
 import type { IFieldApi } from "types/form";
 
 // type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -19,7 +20,7 @@ type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
 > & {
   name: TName;
   helperText?: ReactNode;
-  fieldApi:IFieldApi<TFormData, TName,DeepValue<TFormData, TName>>;
+  fieldApi: IFieldApi<TFormData, TName, DeepValue<TFormData, TName>>;
 };
 export function Slider<TFormData extends {}, TName extends DeepKeys<TFormData>>(
   props: Props<TFormData, TName>
@@ -42,18 +43,20 @@ export function Slider<TFormData extends {}, TName extends DeepKeys<TFormData>>(
           handleChange(value);
           if (onChange !== undefined) onChange(e, value, activeThumb);
         }}
-        onBlur={(e:FocusEvent<HTMLSpanElement>) => {
+        onBlur={(e: FocusEvent<HTMLSpanElement>) => {
           handleBlur();
           if (onBlur !== undefined) onBlur(e);
         }}
       />
       {isError && (
         <FormHelperText>
-          {isError ? state.meta.errors.join(", ") : helperText}
+          {isError
+            ? state.meta.errors.map((e) => e?.message || "").join(", ")
+            : helperText}
         </FormHelperText>
       )}
     </FormControl>
   );
 }
 
-Slider.displayName = "FormikMaterialUISlider";
+Slider.displayName = "MaterialUISlider";

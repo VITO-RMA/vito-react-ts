@@ -1,6 +1,5 @@
 import { styled } from "@mui/material";
-
-import { Outlet } from "react-router-dom";
+import { Outlet } from "@tanstack/react-router";
 
 import { mixinTransform } from "utils/CSSUtil";
 import { Header } from "components/layout/Header";

@@ -1,9 +1,9 @@
 import {
   createTheme,
+  type CommonColors,
   type SimplePaletteColorOptions,
   type ThemeOptions,
 } from "@mui/material/styles";
-import type { CommonColors } from "@mui/material/styles/createPalette";
 
 interface TextColors {
   primary: string;

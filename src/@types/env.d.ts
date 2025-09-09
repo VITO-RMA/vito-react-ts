@@ -1,5 +1,5 @@
-declare const VITE_APP_VERSION: string;
-declare const VITE_APP_RELEASE_DATE: string;
+declare const APP_VERSION: string;
+declare const APP_RELEASE_DATE: string;
 
 interface ImportMetaEnv {
   VITE_NAME: string;

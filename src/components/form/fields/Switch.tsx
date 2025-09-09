@@ -3,29 +3,21 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText,
-  Checkbox as MuiCheckbox,
-  type CheckboxProps,
+  Switch as MuiSwitch,
   type FormControlLabelProps,
+  type SwitchProps,
 } from "@mui/material";
-import type { DeepKeys, DeepValue } from "@tanstack/react-form";
+import { useStore } from "@tanstack/react-form";
 
-import type { IFieldApi } from "types/form";
+import { useFieldContext } from "hooks/formHooks";
 
-type Props<TFormData extends {}, TName extends DeepKeys<TFormData>> = Omit<
-  CheckboxProps,
-  "name"
-> &
+type Props = SwitchProps &
   Omit<FormControlLabelProps, "control" | "onChange" | "label"> & {
-    name: TName;
     label?: ReactNode;
     helperText?: ReactNode;
-    fieldApi: IFieldApi<TFormData, TName, DeepValue<TFormData, TName>>;
   };
 
-export function Checkbox<
-  TFormData extends {},
-  TName extends DeepKeys<TFormData>,
->(props: Props<TFormData, TName>) {
+export function Switch(props: Props) {
   const {
     name,
     slotProps,
@@ -33,24 +25,25 @@ export function Checkbox<
     labelPlacement,
     onChange,
     onBlur,
-    fieldApi,
+    className = "",
     helperText,
     ...textfieldProps
   } = props;
-  const { state, handleChange, handleBlur } = fieldApi;
-  const isError = state.meta.isTouched && (state.meta.errors?.length || 0) > 0;
+
+  const { state, handleBlur, handleChange, store } = useFieldContext<boolean>();
+  const errors = useStore(store, (s) => s.meta.errors);
+  const isError = state.meta.isTouched && (errors?.length || 0) > 0;
+
   if (!name) throw Error("Please provide a name");
   return (
-    <FormControl error={isError}>
+    <FormControl error={isError} className={className}>
       <FormControlLabel
         labelPlacement={labelPlacement}
         slotProps={slotProps}
         control={
-          <MuiCheckbox
-            //@ts-ignore FIXME: typing!
+          <MuiSwitch
             checked={state.value}
             onChange={(e, checked) => {
-              //@ts-ignore FIXME: typing!
               handleChange(checked);
               if (onChange !== undefined) onChange(e, checked);
             }}
@@ -64,9 +57,7 @@ export function Checkbox<
         label={label}
       />
       <FormHelperText>
-        {isError
-          ? state.meta.errors.map((e) => e?.message || "").join(", ")
-          : helperText}
+        {isError ? errors.map((e) => e?.message || "").join(", ") : helperText}
       </FormHelperText>
     </FormControl>
   );

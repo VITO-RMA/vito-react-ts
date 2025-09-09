@@ -12,7 +12,7 @@ module.exports = {
     "",
     "^react-i18next$",
     "^@tanstack/react-query",
-    "^react-router-dom$",
+    "^@tanstack/react-router$",
     "",
     "^hooks/(.*)$",
     "",

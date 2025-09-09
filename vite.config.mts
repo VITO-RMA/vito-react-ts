@@ -1,9 +1,11 @@
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 import viteTsconfigPaths from "vite-tsconfig-paths";
+
+import pkg from "./package.json" with { type: "json" };
 
 export default defineConfig({
   build: {
@@ -19,13 +21,13 @@ export default defineConfig({
   },
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
-    APP_RELEASE_DATE: JSON.stringify(process.env.npm_package_date),
+    APP_RELEASE_DATE: JSON.stringify(pkg.config?.date ?? ""),
   },
   plugins: [
     basicSsl(),
     svgrPlugin(),
     viteTsconfigPaths(),
-    TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
+    tanstackRouter({ target: "react", autoCodeSplitting: true }),
     react({
       babel: {
         plugins: [["babel-plugin-react-compiler"]],

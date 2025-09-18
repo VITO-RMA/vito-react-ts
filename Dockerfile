@@ -1,14 +1,17 @@
 # stage 1: build image
-FROM node:22.8.0-alpine3.19 as builder
+FROM node:24-alpine AS builder
 
 RUN apk add --no-cache git
 
 WORKDIR /usr/src/app
 
-RUN yarn set version stable
+COPY .yarn .yarn
+RUN yarn set version 4.9.4
+RUN corepack enable
 # Installing dependencies first can save time on rebuilds
 # We do need the full (dev) dependencies here
-COPY package.json yarn.lock tsconfig.json tsconfig.node.json .env index.html vite.config.ts .yarnrc.yml ./
+COPY package.json yarn.lock tsconfig.json tsconfig.node.json .env index.html vite.config.mts .yarnrc.yml ./
+COPY ./ ./
 RUN yarn install
 
 COPY src src

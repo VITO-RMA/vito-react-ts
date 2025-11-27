@@ -1,4 +1,4 @@
-import type { CSSProperties } from "@mui/material/styles/createMixins";
+import type { CSSProperties } from "@mui/material/styles";
 
 export function mixinTransform(
   mixin: CSSProperties,

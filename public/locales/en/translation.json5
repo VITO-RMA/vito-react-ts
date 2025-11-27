@@ -8,5 +8,5 @@
     stacktrace: 'Stacktrace',
     loading: 'Loading...',
   },
-  title: 'VITO',
+  title:{globalTitle: 'VITO'},
 }

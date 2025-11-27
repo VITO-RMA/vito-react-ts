@@ -1,35 +1,35 @@
 import {
   createTheme,
   type CommonColors,
+  type PaletteOptions,
   type SimplePaletteColorOptions,
   type ThemeOptions,
 } from "@mui/material/styles";
 
-interface TextColors {
-  primary: string;
-  secondary: string | undefined;
-  disabled: string;
-  hint: string;
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    small: true;
+  }
 }
 
-export const theme = (() => {
+declare module "@mui/material/Toolbar" {
+  interface ToolbarPropsVariantOverrides {
+    small: true;
+  }
+}
+
+export const setTheme = (mode: "dark" | "light") => {
   const sansFont =
     "Avenir LT Std, avenir next, avenir,-apple-system, BlinkMacSystemFont, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif";
 
   const borderRadius: number = 4;
-
   const commonColors: CommonColors = {
     black: "#000",
     white: "#fff",
   };
-  const primary: SimplePaletteColorOptions = {
-    main: "#475a74",
-  };
+
   const themeColors: SimplePaletteColorOptions = {
-    main: "#292929",
-  };
-  const secondary: SimplePaletteColorOptions = {
-    main: "#f68121",
+    main: "#ddf7ff",
   };
   const success: SimplePaletteColorOptions = {
     main: "rgb(75 ,161 ,68)",
@@ -43,38 +43,62 @@ export const theme = (() => {
     dark: "rgb(108 ,101 ,18)",
     contrastText: commonColors.white,
   };
-  const text: TextColors = {
-    primary: "rgba(0, 0, 0, 1)",
-    secondary: "rgba(0, 0, 0, 0.8)",
-    disabled: "rgba(0, 0, 0, 0.4)",
-    hint: "rgba(0, 0, 0, 0.4)",
+
+  const lightMode: PaletteOptions = {
+    mode: "light",
+    primary: {
+      main: "#e6ebee",
+    },
+    secondary: {
+      main: "#11af58ff",
+    },
+    text: {
+      primary: "#002E56",
+      secondary: "#002E56",
+      disabled: "#002e567a",
+    },
+    success,
+    warning,
+    error,
+    background: {
+      default: "#f4f6f8",
+      paper: commonColors.white,
+    },
+    common: commonColors,
+  };
+
+  const darkMode: PaletteOptions = {
+    mode: "dark",
+    primary: {
+      main: "#002E56",
+    },
+    secondary: {
+      main: "#15EA75",
+    },
+    text: {
+      primary: "#ddf7ff",
+      secondary: "#cdf3ffff",
+      disabled: "#ddf7ff62",
+    },
+    success,
+    warning,
+    error,
+    background: {
+      default: "#0056a1ff",
+      paper: "#002E56",
+    },
+    common: commonColors,
   };
 
   const defaultTheme = createTheme({
-    palette: {
-      primary,
-      secondary,
-      text,
-      success,
-      warning,
-      error,
-    },
+    palette: mode === "dark" ? darkMode : lightMode,
     typography: {
       fontFamily: sansFont,
     },
   });
 
   const overrides: ThemeOptions = {
-    palette: {
-      primary,
-      secondary,
-      text,
-      success,
-      warning,
-      error,
-      background: {},
-      common: commonColors,
-    },
+    palette: mode === "dark" ? darkMode : lightMode,
     typography: {
       fontFamily: sansFont,
     },
@@ -82,7 +106,6 @@ export const theme = (() => {
       borderRadius: borderRadius,
     },
     components: {
-      MuiCssBaseline: {},
       MuiSkeleton: {
         styleOverrides: {
           root: {
@@ -95,4 +118,4 @@ export const theme = (() => {
   };
 
   return createTheme(defaultTheme, overrides);
-})();
+};

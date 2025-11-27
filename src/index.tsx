@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, CircularProgress, CssBaseline, Typography } from "@mui/material";
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { DarkModeProvider } from "context/DarkModeProvider";
 import { t } from "i18next";
 import { enqueueSnackbar } from "notistack";
 import ReactDOM from "react-dom/client";
@@ -9,14 +8,15 @@ import { ErrorBoundary } from "react-error-boundary";
 import { routeTree } from "routeTree.gen";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createRouter,  RouterProvider } from "@tanstack/react-router";
 
 import { AppGlobalStyles } from "config/AppGlobalStyles";
 import { bootstrap } from "config/bootstrap";
 import { QUERY_STALE_TIME } from "config/constants";
-import { theme } from "config/theme";
 import { GlobalErrorFallBack } from "components/boundary/GlobalErrorFallBack";
+import { PageBase } from "pages/base/PageBase";
 
-bootstrap();
+await bootstrap();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,11 +36,10 @@ const queryClient = new QueryClient({
     },
   },
 });
-
 const router = createRouter({
   routeTree,
   defaultPendingComponent: () => (
-    <Box
+     <PageBase><Box
       sx={{
         minHeight: "calc(100dvh - 68px)",
         display: "flex",
@@ -49,12 +48,12 @@ const router = createRouter({
       }}
     >
       <CircularProgress />
-    </Box>
+    </Box></PageBase>
   ),
   defaultErrorComponent: ({ error }: { error: Error }) => (
-    <Typography>{error.message}</Typography>
+    <PageBase><Typography>{error.message}</Typography></PageBase>
   ),
-  defaultNotFoundComponent: () => <>404 Not found</>,
+  defaultNotFoundComponent: () => <PageBase><Typography>404 Page not found</Typography></PageBase>,
   notFoundMode: "fuzzy",
   defaultPreload: "intent",
   scrollRestoration: true,
@@ -68,7 +67,7 @@ declare module "@tanstack/react-router" {
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
+    <DarkModeProvider localStorageKey="vpcs">
       <CssBaseline />
       <AppGlobalStyles />
       <QueryClientProvider client={queryClient}>
@@ -81,6 +80,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           />
         </ErrorBoundary>
       </QueryClientProvider>
-    </MuiThemeProvider>
+    </DarkModeProvider>
   </React.StrictMode>
 );

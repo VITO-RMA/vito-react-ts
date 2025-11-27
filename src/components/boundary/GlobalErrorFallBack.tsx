@@ -53,24 +53,19 @@ export function GlobalErrorFallBack(props: FallbackProps) {
           )}
           {!axios.isAxiosError(error) && (
             <Grid container spacing={1}>
-              <Grid item xs={2}>
-                <Typography variant="h5" className="detail-title">
-                  {t("label.name")}
-                </Typography>
-                <JSONPretty data={error.name} />
-              </Grid>
-              <Grid item>
-                <Typography variant="h5" className="detail-title">
-                  {t("label.message")}
-                </Typography>
-                <JSONPretty data={error.message} />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="h5" className="detail-title">
-                  {t("label.stacktrace")}
-                </Typography>
-                <JSONPretty data={error.stack} />
-              </Grid>
+              <Typography variant="h5" className="detail-title">
+                {t("label.name")}
+              </Typography>
+              <JSONPretty data={error.name} />
+              <Typography variant="h5" className="detail-title">
+                {t("label.message")}
+              </Typography>
+              <JSONPretty data={error.message} />
+            
+              <Typography variant="h5" className="detail-title">
+                {t("label.stacktrace")}
+              </Typography>
+              <JSONPretty data={error.stack} />
             </Grid>
           )}
         </CardContent>

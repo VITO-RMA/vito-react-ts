@@ -40,7 +40,6 @@ export const AppGlobalStyles = () => {
           body,
           #app,
           #root {
-            min-height: 100dvh;
             header {
               flex: 0 1 100%;
               z-index: ${theme.zIndex.drawer + 1};

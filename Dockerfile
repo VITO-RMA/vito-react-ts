@@ -1,35 +1,24 @@
-# stage 1: build image
-FROM node:24-alpine AS builder
+FROM node:25-alpine3.22 AS builder
 
-RUN apk add --no-cache git
+RUN apk add --no-cache git \
+  && rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg \
+  && npm i -g corepack \
+  && corepack enable
 
 WORKDIR /usr/src/app
 
-COPY .yarn .yarn
-RUN yarn set version 4.9.4
-RUN corepack enable
-# Installing dependencies first can save time on rebuilds
-# We do need the full (dev) dependencies here
-COPY package.json yarn.lock tsconfig.json tsconfig.node.json .env index.html vite.config.mts .yarnrc.yml ./
-COPY ./ ./
-RUN yarn install
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
+COPY tsconfig.json tsconfig.node.json index.html vite.config.mts ./
 COPY src src
 COPY public public
 COPY .env .
 
 ARG VITE_GIT_COMMIT
 ARG VITE_BUILD_ID
-RUN yarn build
+RUN pnpm run build
 
-# stage 2: resulting image
 FROM rma-tools-docker-local.repo.vito.be/httpd:2.4
 COPY --from=builder /usr/src/app/build /usr/local/apache2/htdocs
-
-# Copy .env file and shell script to container
-WORKDIR /usr/local/apache2/htdocs
-COPY .env .
-
-
-# Start httpd
-CMD ["/bin/sh", "-c", "httpd-foreground"]
+CMD ["httpd-foreground"]

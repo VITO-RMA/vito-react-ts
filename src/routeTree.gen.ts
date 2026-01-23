@@ -8,52 +8,77 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
+import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 
-import { Route as rootRoute } from './routes/__root'
+const LayoutRouteRoute = LayoutRouteRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutIndexRoute = LayoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 
-// Create/Update Routes
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface FileRoutesByFullPath {
+  '/': typeof LayoutIndexRoute
 }
-
-// Create and export the route tree
-
-export interface FileRoutesByFullPath {}
-
-export interface FileRoutesByTo {}
-
+export interface FileRoutesByTo {
+  '/': typeof LayoutIndexRoute
+}
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
+  '/_layout': typeof LayoutRouteRouteWithChildren
+  '/_layout/': typeof LayoutIndexRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to: '/'
+  id: '__root__' | '/_layout' | '/_layout/'
   fileRoutesById: FileRoutesById
 }
+export interface RootRouteChildren {
+  LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
+}
 
-export interface RootRouteChildren {}
-
-const rootRouteChildren: RootRouteChildren = {}
-
-export const routeTree = rootRoute
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": []
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_layout/': {
+      id: '/_layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
   }
 }
-ROUTE_MANIFEST_END */
+
+interface LayoutRouteRouteChildren {
+  LayoutIndexRoute: typeof LayoutIndexRoute
+}
+
+const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutIndexRoute: LayoutIndexRoute,
+}
+
+const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
+  LayoutRouteRouteChildren,
+)
+
+const rootRouteChildren: RootRouteChildren = {
+  LayoutRouteRoute: LayoutRouteRouteWithChildren,
+}
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()

@@ -18,6 +18,8 @@
 
 ``` Use Workspace Version ```
 
+
+
 # Yarn to pnpm
   
 #### Step 1 - delete yarn related files
@@ -26,4 +28,6 @@
 
 #### Step 2 - Remove yarn version from package.json
 
-#### Step 3 - Let's go: **pnpm install**
+#### Step 3 - Let's go: 
+
+```bash pnpm install```

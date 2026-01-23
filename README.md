@@ -1,34 +1,29 @@
-
 # Installation guide
 
 #### Step 1 - Install degit
 
-``` npm install -g degit```
+```bash npm install -g degit```  
 
-``` yarn global add degit```
+```bash pnpm add -g degit```
 
-#### Step 2 - Use degit to create a new project 
+#### Step 2 - Use degit to create a new project  
 
-``` degit https://github.com/VITO-RMA/vito-react-ts.git my-new-vite-project ```
+```bash degit https://github.com/VITO-RMA/vito-react-ts.git my-new-vite-project ```
 
-##### With Yarn v3
+#### Step 3 - Enable workspace version of typescript
 
-```yarn dlx degit https://github.com/VITO-RMA/vito-react-ts.git project_name_frontend```
-
-#### Step 3 - Install yarn 3 (if needed)
-
-```yarn set version stable```
-
-#### Step 4 - To support features like go-to-definition a plugin like ZipFS is needed.
-
-```yarn dlx @yarnpkg/sdks vscode```
-
-#### Step 5 - Enable workspace version of typescript
-``` ctrl + shift + p ```
+``` ctrl + shift + p ```  
 
 ``` Select TypeScript Version ```
 
 ``` Use Workspace Version ```
 
+# Yarn to pnpm
+  
+#### Step 1 - delete yarn related files
 
+```bash rm -rf .yarnrc.yml yarn.lock .pnp.cjs .pnp.loader.mjs .yarn```
 
+#### Step 2 - Remove yarn version from package.json
+
+#### Step 3 - Let's go: **pnpm install**

@@ -1,11 +1,9 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import JSON5 from "json5";
-
 import Backend from "i18next-chained-backend";
 import HTTPBackend from "i18next-http-backend";
 import CacheBackend from "i18next-localstorage-backend";
-//import { i18nInterceptor } from "./interceptors";
+
+import { initReactI18next } from "react-i18next";
 
 const VERSION = "0.1.1";
 
@@ -19,8 +17,8 @@ const CacheBackendOptions = {
   store: localStorage,
 };
 const HTTPBackendOptions = {
-  loadPath: "/locales/{{lng}}/{{ns}}.json5",
-  parse: JSON5.parse,
+  loadPath: "/locales/{{lng}}/{{ns}}.json",
+  parse: JSON.parse,
   allowMultiLoading: false,
   crossDomain: false,
   withCredentials: false,

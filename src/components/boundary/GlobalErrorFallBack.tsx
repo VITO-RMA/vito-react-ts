@@ -1,20 +1,20 @@
 import { useState } from "react";
 import {
+  alpha,
+  Avatar,
   Button,
   Card,
   CardActions,
   CardContent,
+  CardHeader,
   Collapse,
   Grid,
-  Typography,
   styled,
-  CardHeader,
-  Avatar,
-  alpha,
+  Typography,
 } from "@mui/material";
+import axios from "axios";
 import { FallbackProps } from "react-error-boundary";
 import JSONPretty from "react-json-pretty";
-import axios from "axios";
 
 import { useTranslation } from "react-i18next";
 
@@ -22,7 +22,9 @@ export function GlobalErrorFallBack(props: FallbackProps) {
   const { error, resetErrorBoundary } = props;
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(true);
-
+  function isError(e: unknown | Error): e is Error {
+    return e instanceof Error;
+  }
   return (
     <StyledCard>
       <CardHeader
@@ -51,7 +53,7 @@ export function GlobalErrorFallBack(props: FallbackProps) {
           {axios.isAxiosError(error) && (
             <JSONPretty data={JSON.stringify(error.response)} />
           )}
-          {!axios.isAxiosError(error) && (
+          {isError(error) && (
             <Grid container spacing={1}>
               <Typography variant="h5" className="detail-title">
                 {t("label.name")}
@@ -61,7 +63,7 @@ export function GlobalErrorFallBack(props: FallbackProps) {
                 {t("label.message")}
               </Typography>
               <JSONPretty data={error.message} />
-            
+
               <Typography variant="h5" className="detail-title">
                 {t("label.stacktrace")}
               </Typography>

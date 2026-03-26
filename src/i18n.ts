@@ -1,9 +1,9 @@
+import { initReactI18next } from "react-i18next";
+
 import i18n from "i18next";
 import Backend from "i18next-chained-backend";
 import HTTPBackend from "i18next-http-backend";
 import CacheBackend from "i18next-localstorage-backend";
-
-import { initReactI18next } from "react-i18next";
 
 const VERSION = "0.1.1";
 

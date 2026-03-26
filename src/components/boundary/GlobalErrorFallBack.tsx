@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
-  alpha,
   Avatar,
+  alpha,
   Button,
   Card,
   CardActions,
@@ -12,11 +12,11 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import axios from "axios";
-import { FallbackProps } from "react-error-boundary";
-import JSONPretty from "react-json-pretty";
-
 import { useTranslation } from "react-i18next";
+
+import axios from "axios";
+import type { FallbackProps } from "react-error-boundary";
+import JSONPretty from "react-json-pretty";
 
 export function GlobalErrorFallBack(props: FallbackProps) {
   const { error, resetErrorBoundary } = props;

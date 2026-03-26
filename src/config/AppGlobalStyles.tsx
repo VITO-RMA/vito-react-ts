@@ -1,5 +1,6 @@
 import { darken, useTheme } from "@mui/material";
 import GlobalStyles from "@mui/material/GlobalStyles";
+
 import { css } from "@emotion/react";
 
 export const AppGlobalStyles = () => {

@@ -1,7 +1,9 @@
 import { useContext } from "react";
-import { PaletteMode, useMediaQuery } from "@mui/material";
-import { ThemeContext } from "context/ThemeContext";
+import { type PaletteMode, useMediaQuery } from "@mui/material";
+
 import { useLocalStorage } from "usehooks-ts";
+
+import { ThemeContext } from "@/context/ThemeContext";
 
 export function useCurrentThemeMode() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");

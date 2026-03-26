@@ -1,20 +1,22 @@
 import React from "react";
 import { Box, CircularProgress, CssBaseline, Typography } from "@mui/material";
-import { DarkModeProvider } from "context/DarkModeProvider";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { t } from "i18next";
 import { enqueueSnackbar } from "notistack";
 import ReactDOM from "react-dom/client";
 import { ErrorBoundary } from "react-error-boundary";
-import { routeTree } from "routeTree.gen";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createRouter,  RouterProvider } from "@tanstack/react-router";
+import { AppGlobalStyles } from "@/config/AppGlobalStyles";
+import { bootstrap } from "@/config/bootstrap";
+import { QUERY_STALE_TIME } from "@/config/constants";
+import { PageBase } from "@/pages/base/PageBase";
+import { GlobalErrorFallBack } from "@/components/boundary/GlobalErrorFallBack";
 
-import { AppGlobalStyles } from "config/AppGlobalStyles";
-import { bootstrap } from "config/bootstrap";
-import { QUERY_STALE_TIME } from "config/constants";
-import { GlobalErrorFallBack } from "components/boundary/GlobalErrorFallBack";
-import { PageBase } from "pages/base/PageBase";
+import { DarkModeProvider } from "@/context/DarkModeProvider";
+import { routeTree } from "@/routeTree.gen";
 
 await bootstrap();
 
@@ -39,21 +41,29 @@ const queryClient = new QueryClient({
 const router = createRouter({
   routeTree,
   defaultPendingComponent: () => (
-     <PageBase><Box
-      sx={{
-        minHeight: "calc(100dvh - 68px)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <CircularProgress />
-    </Box></PageBase>
+    <PageBase>
+      <Box
+        sx={{
+          minHeight: "calc(100dvh - 68px)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    </PageBase>
   ),
   defaultErrorComponent: ({ error }: { error: Error }) => (
-    <PageBase><Typography>{error.message}</Typography></PageBase>
+    <PageBase>
+      <Typography>{error.message}</Typography>
+    </PageBase>
   ),
-  defaultNotFoundComponent: () => <PageBase><Typography>404 Page not found</Typography></PageBase>,
+  defaultNotFoundComponent: () => (
+    <PageBase>
+      <Typography>404 Page not found</Typography>
+    </PageBase>
+  ),
   notFoundMode: "fuzzy",
   defaultPreload: "intent",
   scrollRestoration: true,

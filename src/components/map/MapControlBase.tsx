@@ -1,8 +1,10 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 import { Portal } from "@mui/material";
-import { uniqueId } from "lodash-es";
+
+import { type ControlPosition, useControl } from "react-map-gl/maplibre";
 import type { Map as MaplibreMap } from "maplibre-gl";
-import { useControl, type ControlPosition } from "react-map-gl/maplibre";
+
+import { uniqueId } from "lodash-es";
 
 interface Props {
   children?: ReactNode | ReactNode[];

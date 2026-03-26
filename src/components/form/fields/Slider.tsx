@@ -1,14 +1,15 @@
 import type { FocusEvent, ReactNode } from "react";
 import {
   FormControl,
+  type FormControlProps,
   FormHelperText,
   Slider as MuiSlider,
-  type FormControlProps,
   type SliderProps,
 } from "@mui/material";
+
 import { useStore } from "@tanstack/react-form";
 
-import { useFieldContext } from "hooks/formHooks";
+import { useFieldContext } from "@/hooks/formHooks";
 
 type Props = SliderProps &
   Omit<FormControlProps, "control" | "onChange" | "label"> & {

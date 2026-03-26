@@ -7,7 +7,7 @@ import type {
 
 export type FormOnSubmit<
   TFormData,
-  TParentSubmitMeta = any | undefined,
+  TParentSubmitMeta = unknown | undefined,
 > = Required<
   Pick<
     FormOptions<
@@ -30,7 +30,7 @@ export type FormOnSubmit<
 
 export type FormOnSubmitInvalid<
   TFormData,
-  TParentSubmitMeta = any | undefined,
+  TParentSubmitMeta = unknown | undefined,
 > = Required<
   Pick<
     FormOptions<

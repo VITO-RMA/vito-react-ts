@@ -2,14 +2,15 @@ import type { ReactNode } from "react";
 import {
   FormControl,
   FormControlLabel,
+  type FormControlLabelProps,
   FormHelperText,
   Switch as MuiSwitch,
-  type FormControlLabelProps,
   type SwitchProps,
 } from "@mui/material";
+
 import { useStore } from "@tanstack/react-form";
 
-import { useFieldContext } from "hooks/formHooks";
+import { useFieldContext } from "@/hooks/formHooks";
 
 type Props = SwitchProps &
   Omit<FormControlLabelProps, "control" | "onChange" | "label"> & {

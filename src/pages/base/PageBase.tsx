@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react";
 import { styled } from "@mui/material";
 
-import { mixinTransform } from "utils/CSSUtil";
+import { mixinTransform } from "@/utils/CSSUtil";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 

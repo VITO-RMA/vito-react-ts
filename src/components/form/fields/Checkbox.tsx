@@ -1,15 +1,16 @@
 import type { ReactNode } from "react";
 import {
+  type CheckboxProps,
   FormControl,
   FormControlLabel,
+  type FormControlLabelProps,
   FormHelperText,
   Checkbox as MuiCheckbox,
-  type CheckboxProps,
-  type FormControlLabelProps,
 } from "@mui/material";
+
 import { useStore } from "@tanstack/react-form";
 
-import { useFieldContext } from "hooks/formHooks";
+import { useFieldContext } from "@/hooks/formHooks";
 
 type Props = CheckboxProps &
   Omit<FormControlLabelProps, "control" | "onChange" | "label"> & {

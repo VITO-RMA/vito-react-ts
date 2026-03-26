@@ -1,5 +1,4 @@
 import { AppBar, styled, Toolbar, Typography } from "@mui/material";
-
 import { useTranslation } from "react-i18next";
 
 export function Header() {

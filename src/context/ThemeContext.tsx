@@ -1,5 +1,6 @@
-import { createContext, ReactNode } from "react";
-import { PaletteMode, useMediaQuery } from "@mui/material";
+import { createContext, type ReactNode } from "react";
+import { type PaletteMode, useMediaQuery } from "@mui/material";
+
 import { useLocalStorage } from "usehooks-ts";
 
 interface ThemeContextValues {

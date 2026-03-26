@@ -1,13 +1,14 @@
 import { useRef } from "react";
-import { Close } from "@mui/icons-material";
 import { CircularProgress, IconButton } from "@mui/material";
+import { Close } from "@mui/icons-material";
+
 import {
   createRootRoute,
   Outlet,
   retainSearchParams,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { SnackbarKey, SnackbarProvider } from "notistack";
+import { type SnackbarKey, SnackbarProvider } from "notistack";
 
 export const Route = createRootRoute({
   component: RootPage,

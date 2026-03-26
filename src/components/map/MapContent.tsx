@@ -1,4 +1,5 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
+
 import MaplibreMap, { type MapLayerMouseEvent } from "react-map-gl/maplibre";
 
 interface Props extends ComponentPropsWithRef<typeof MaplibreMap> {

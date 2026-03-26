@@ -4,14 +4,14 @@ import {
   FormHelperText,
   InputLabel,
   Select as MuiSelect,
-  styled,
   type SelectProps,
+  styled,
 } from "@mui/material";
-import { useStore } from "@tanstack/react-form";
-
 import { useTranslation } from "react-i18next";
 
-import { useFieldContext } from "hooks/formHooks";
+import { useStore } from "@tanstack/react-form";
+
+import { useFieldContext } from "@/hooks/formHooks";
 
 type Value = number | string | number[] | string[];
 

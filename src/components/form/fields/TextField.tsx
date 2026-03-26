@@ -3,13 +3,16 @@ import {
   styled,
   type TextFieldProps,
 } from "@mui/material";
-import { useStore } from "@tanstack/react-form";
-
 import { useTranslation } from "react-i18next";
 
-import { useFieldContext } from "hooks/formHooks";
+import { useStore } from "@tanstack/react-form";
 
-type Props = TextFieldProps & { linked?: any[]; disableVisualLinked?: true };
+import { useFieldContext } from "@/hooks/formHooks";
+
+type Props = TextFieldProps & {
+  linked?: unknown[];
+  disableVisualLinked?: true;
+};
 
 export function TextField(props: Props) {
   const {

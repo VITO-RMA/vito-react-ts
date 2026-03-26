@@ -1,8 +1,9 @@
-import { ReactNode, useContext } from "react";
+import { type ReactNode, useContext } from "react";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 
-import { setTheme } from "config/theme";
-import { ThemeContext, ThemeContextProvider } from "../context/ThemeContext";
+import { setTheme } from "@/config/theme";
+
+import { ThemeContext, ThemeContextProvider } from "@/context/ThemeContext";
 
 interface Props {
   localStorageKey: string;

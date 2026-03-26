@@ -1,6 +1,6 @@
 import {
-  createTheme,
   type CommonColors,
+  createTheme,
   type PaletteOptions,
   type SimplePaletteColorOptions,
   type ThemeOptions,

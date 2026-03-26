@@ -1,0 +1,62 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80
+  },
+  "javascript": {
+    "formatter": {
+      "trailingCommas": "es5",
+      "semicolons": "always",
+      "quoteStyle": "double"
+    }
+  },
+
+  "files": {
+    "includes": ["**", "!node_modules", "!dist", "!build"]
+  },
+
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ["react"],
+              ["react-dom"],
+              ["@mui/material", "@mui/material/**"],
+              ["@mui/icons-material", "@mui/icons-material/**"],
+              ["lucide-react"],
+              ["react-i18next"],
+              ["react-router-dom"],
+              ":BLANK_LINE:",
+              ["react-map-gl", "react-map-gl/**"],
+              ["maplibre-gl", "maplibre-gl/**"],
+              ":BLANK_LINE:",
+              ["@tanstack/react-query", "@tanstack/react-query/**"],
+              ["@tanstack/react-query-devtools"],
+              ["@tanstack/react-table", "@tanstack/react-table/**"],
+              ["@tanstack/router", "@tanstack/router/**"],
+              ":BLANK_LINE:",
+              ":PACKAGE:",
+              ":BLANK_LINE:",
+              ["@/hooks", "@/hooks/**"],
+              ":BLANK_LINE:",
+              ["@/types", "@/types/**"],
+              ["@/config", "@/config/**"],
+              ["@/utils", "@/utils/**"],
+              ["@/assets", "@/assets/**"],
+              ["@/layout", "@/layout/**"],
+              ["@/pages", "@/pages/**"],
+              ["@/components", "@/components/**"],
+              ":BLANK_LINE:",
+              ":PATH:"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

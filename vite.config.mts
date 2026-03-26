@@ -3,7 +3,6 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
-import viteTsconfigPaths from "vite-tsconfig-paths";
 
 import pkg from "./package.json" with { type: "json" };
 
@@ -23,10 +22,12 @@ export default defineConfig({
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
     APP_RELEASE_DATE: JSON.stringify(pkg.config?.date ?? ""),
   },
+  resolve: {
+    tsconfigPaths: true,
+  },
   plugins: [
     basicSsl(),
     svgrPlugin(),
-    viteTsconfigPaths(),
     tanstackRouter({ target: "react", autoCodeSplitting: true }),
     react({
       babel: {

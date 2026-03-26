@@ -10,7 +10,7 @@ import { useStore } from "@tanstack/react-form";
 import { useFieldContext } from "@/hooks/formHooks";
 
 type Props = TextFieldProps & {
-  linked?: unknown[];
+  linked?: any[];
   disableVisualLinked?: true;
 };
 

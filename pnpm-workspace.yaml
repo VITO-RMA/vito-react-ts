@@ -1,0 +1,7 @@
+minimumReleaseAge: 5040
+
+onlyBuiltDependencies:
+  - esbuild
+  - msw
+
+blockExoticSubdeps: true

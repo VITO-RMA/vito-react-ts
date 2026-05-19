@@ -2,6 +2,6 @@ minimumReleaseAge: 5040
 
 allowBuilds:
   esbuild: true
-  msw: true
+  msw: false
 
 blockExoticSubdeps: true

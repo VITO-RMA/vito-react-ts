@@ -2,7 +2,6 @@ import { type ReactNode, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { type ControlPosition, useControl } from "react-map-gl/maplibre";
-import type { Map as MaplibreMap } from "maplibre-gl";
 
 import { uniqueId } from "lodash-es";
 
@@ -19,14 +18,14 @@ export function MapControlBase(props: Props) {
 
   useControl(
     () => ({
-      onAdd: (map: MaplibreMap) => {
+      onAdd: (map) => {
         if (!wrapper) {
           const container = map
             .getContainer()
             .querySelector(`div.maplibregl-ctrl-${position}`);
-          const controlContainer = (container?.querySelector(
+          const controlContainer = (container?.querySelector<HTMLDivElement>(
             `div.maplibregl-ctrl.${uuid}`
-          ) || document.createElement("div")) as HTMLDivElement;
+          ) || document.createElement("div")) ;
           controlContainer.classList.add(
             "maplibregl-ctrl",
             uuid,

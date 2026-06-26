@@ -1,46 +1,47 @@
-import { useRef } from "react";
-import { CircularProgress, IconButton } from "@mui/material";
-import { Close } from "@mui/icons-material";
+import type { QueryClient } from "@tanstack/react-query";
 
 import {
-  createRootRoute,
+  createRootRouteWithContext,
   Outlet,
   retainSearchParams,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { type SnackbarKey, SnackbarProvider } from "notistack";
 
-export const Route = createRootRoute({
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import "@/styles/styles.css";
+
+import { Spinner } from "@/components/ui/spinner";
+
+import { ThemeProvider } from "@/context/ThemeContext";
+
+export interface RouterContext {
+  auth: {
+    msalInstance: null;
+    isAuthenticated: boolean;
+    isLoading: boolean;
+  };
+  queryClient: QueryClient;
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootPage,
-  pendingComponent: CircularProgress,
+  pendingComponent: Spinner,
   search: {
     middlewares: [retainSearchParams(true)],
   },
 });
 
 function RootPage() {
-  const notistackRef = useRef<SnackbarProvider | null>(null);
   const { hostname } = location;
-  function onClickDismiss(key: SnackbarKey) {
-    if (notistackRef !== null && notistackRef.current !== null) {
-      notistackRef.current.closeSnackbar(key);
-    }
-  }
 
   return (
-    <SnackbarProvider
-      maxSnack={3}
-      anchorOrigin={{ horizontal: "right", vertical: "top" }}
-      ref={notistackRef}
-      autoHideDuration={7000}
-      action={(key: SnackbarKey) => (
-        <IconButton onClick={() => onClickDismiss(key)} color="inherit">
-          <Close />
-        </IconButton>
-      )}
-    >
-      <Outlet />
-      {hostname === "localhost" && <TanStackRouterDevtools />}
-    </SnackbarProvider>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster position="top-right" duration={7000} />
+        <Outlet />
+        {hostname === "localhost" && <TanStackRouterDevtools />}
+      </TooltipProvider>
+    </ThemeProvider>
   );
 }

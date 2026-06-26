@@ -1,24 +1,23 @@
 import React from "react";
-import { Box, CircularProgress, CssBaseline, Typography } from "@mui/material";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { t } from "i18next";
-import { enqueueSnackbar } from "notistack";
 import ReactDOM from "react-dom/client";
 import { ErrorBoundary } from "react-error-boundary";
+import { toast } from "sonner";
 
-import { AppGlobalStyles } from "@/config/AppGlobalStyles";
 import { bootstrap } from "@/config/bootstrap";
 import { QUERY_STALE_TIME } from "@/config/constants";
+import { NotFoundPage } from "@/pages/base/NotFoundPage";
 import { PageBase } from "@/pages/base/PageBase";
 import { GlobalErrorFallBack } from "@/components/boundary/GlobalErrorFallBack";
+import { Spinner } from "@/components/ui/spinner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-import { DarkModeProvider } from "@/context/DarkModeProvider";
+import type { RouterContext } from "@/routes/__root";
 import { routeTree } from "@/routeTree.gen";
-
-await bootstrap();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,42 +27,35 @@ const queryClient = new QueryClient({
     },
     mutations: {
       onError: (err) => {
-        enqueueSnackbar(
-          t("error.failedToSave", { defaultValue: err.message }),
-          {
-            variant: "error",
-          }
-        );
+        toast.error(t("error.failedToSave", { defaultValue: err.message }));
       },
     },
   },
 });
 const router = createRouter({
   routeTree,
+  context: {
+    // Auth context will be provided by AuthRouterProvider
+    auth: {
+      msalInstance: null,
+      isAuthenticated: false,
+      isLoading: false,
+    },
+    queryClient,
+  } as RouterContext,
   defaultPendingComponent: () => (
     <PageBase>
-      <Box
-        sx={{
-          minHeight: "calc(100dvh - 68px)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CircularProgress />
-      </Box>
+      <div className="min-h-auto flex justify-center items-center">
+        <Spinner />
+      </div>
     </PageBase>
   ),
   defaultErrorComponent: ({ error }: { error: Error }) => (
     <PageBase>
-      <Typography>{error.message}</Typography>
+      <h1>{error.message}</h1>
     </PageBase>
   ),
-  defaultNotFoundComponent: () => (
-    <PageBase>
-      <Typography>404 Page not found</Typography>
-    </PageBase>
-  ),
+  defaultNotFoundComponent: NotFoundPage,
   notFoundMode: "fuzzy",
   defaultPreload: "intent",
   scrollRestoration: true,
@@ -74,22 +66,23 @@ declare module "@tanstack/react-router" {
     router: typeof router;
   }
 }
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <DarkModeProvider localStorageKey="vpcs">
-      <CssBaseline />
-      <AppGlobalStyles />
+async function prepare() {
+  await bootstrap();
+  ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+    <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <ErrorBoundary FallbackComponent={GlobalErrorFallBack}>
-          <RouterProvider
-            router={router}
-            defaultPreload="intent"
-            defaultPendingMs={1000}
-            defaultPendingMinMs={500}
-          />
-        </ErrorBoundary>
+        <TooltipProvider>
+          <ErrorBoundary FallbackComponent={GlobalErrorFallBack}>
+            <RouterProvider
+              router={router}
+              defaultPreload="intent"
+              defaultPendingMs={1000}
+              defaultPendingMinMs={500}
+            />
+          </ErrorBoundary>
+        </TooltipProvider>
       </QueryClientProvider>
-    </DarkModeProvider>
-  </React.StrictMode>
-);
+    </React.StrictMode>
+  );
+}
+prepare();

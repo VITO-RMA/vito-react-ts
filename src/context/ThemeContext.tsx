@@ -1,49 +1,40 @@
-import { createContext, type ReactNode } from "react";
-import { type PaletteMode, useMediaQuery } from "@mui/material";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-import { useLocalStorage } from "usehooks-ts";
+import type { ThemePalette } from "@/types/theme";
 
-interface ThemeContextValues {
-  themeColorMode: PaletteMode;
-  changeThemeMode: () => void;
-}
-
-interface Props {
-  children: ReactNode;
-  localStorageKey: string;
-}
-
-export const ThemeContext = createContext<ThemeContextValues>({
-  themeColorMode: "light",
-  changeThemeMode: () => {},
-});
-
-export function ThemeContextProvider(props: Props) {
-  const { children, localStorageKey } = props;
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [themeColorMode, setThemeColorMode] = useLocalStorage<PaletteMode>(
-    localStorageKey,
-    prefersDarkMode ? "dark" : "light"
-  );
-
-  function changeThemeMode() {
-    setThemeColorMode((prevMode) => {
-      if (prevMode === "light") {
-        localStorage.setItem(localStorageKey, "dark");
-        return "dark";
-      }
-      localStorage.setItem(localStorageKey, "light");
-      return "light";
-    });
+const ThemeContext = createContext<{ theme: ThemePalette; toggle: () => void }>(
+  {
+    theme: "light",
+    toggle: () => {},
   }
+);
+
+export const useTheme = () => useContext(ThemeContext);
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState<ThemePalette>(() => {
+    const stored = localStorage.getItem("theme") as ThemePalette;
+    if (stored) return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggle = () => setTheme((t) => (t === "light" ? "dark" : "light"));
 
   return (
-    <ThemeContext.Provider
-      value={{
-        themeColorMode,
-        changeThemeMode,
-      }}
-    >
+    <ThemeContext.Provider value={{ theme, toggle }}>
       {children}
     </ThemeContext.Provider>
   );

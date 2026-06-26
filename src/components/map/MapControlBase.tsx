@@ -1,5 +1,5 @@
 import { type ReactNode, useMemo, useState } from "react";
-import { Portal } from "@mui/material";
+import { createPortal } from "react-dom";
 
 import { type ControlPosition, useControl } from "react-map-gl/maplibre";
 import type { Map as MaplibreMap } from "maplibre-gl";
@@ -51,5 +51,5 @@ export function MapControlBase(props: Props) {
   );
 
   if (!wrapper) return null;
-  return <Portal container={wrapper}>{children}</Portal>;
+  return createPortal(children, wrapper);
 }

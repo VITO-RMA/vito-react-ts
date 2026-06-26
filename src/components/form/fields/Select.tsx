@@ -1,135 +1,102 @@
 import type { ReactNode } from "react";
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  Select as MuiSelect,
-  type SelectProps,
-  styled,
-} from "@mui/material";
-import { useTranslation } from "react-i18next";
 
+import type {
+  SelectRoot,
+  SelectRootChangeEventDetails,
+} from "@base-ui/react/select";
 import { useStore } from "@tanstack/react-form";
 
 import { useFieldContext } from "@/hooks/formHooks";
 
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import {
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  Select as UiSelect,
+} from "@/components/ui/select";
+
+import { cn } from "@/lib/utils";
+
 type Value = number | string | number[] | string[];
 
-type Props<V = Value> = SelectProps<V | string> & {
-  helperText?: ReactNode;
-  linked?: any[];
+type Props<V = Value, Multiple extends boolean = false> = SelectRoot.Props<
+  V,
+  Multiple
+> & {
+  label?: ReactNode | ReactNode[];
+  icon?: ReactNode;
+  className?: string;
+  triggerClassName?: string;
+  wrapperClassName?: string;
+  iconPlacement?: "start" | "end";
 };
 
-export function Select<V = Value>(props: Props<V | string>) {
+export function Select<V = Value, Multiple extends boolean = false>(
+  props: Props<V, Multiple>
+) {
   const {
     name = "",
-    onChange,
-    onBlur,
-    helperText,
-    label,
+    onValueChange,
     required = false,
-    fullWidth = true,
     multiple = false,
-    size,
     className = "",
-    variant,
-    linked = [],
-    ...textfieldProps
+    triggerClassName = "",
+    wrapperClassName = "",
+    children,
+    label = null,
+    icon = null,
+    iconPlacement = "start",
+    ...itemProps
   } = props;
-  const { t } = useTranslation();
   const { state, handleBlur, handleChange, store } = useFieldContext<
-    V | string
+    SelectRoot.Props<V, Multiple>["value"] | null | undefined
   >();
   const { errors, isDirty, isError } = useStore(store, (state) => ({
     isError: state.meta.isTouched && (state.meta.errors?.length || 0) > 0,
     errors: state.meta.errors,
     isDirty: state.meta.isDirty,
   }));
-  const hasEqualValues =
-    linked.find((i) => i[name] !== state.value) === undefined;
-
-  if (Array.isArray(state.value) === false && props.multiple) {
-    console.log("name", name, "=> label", label);
-  }
 
   if (!name) throw Error("Please provide a name");
   return (
-    <Styles
-      error={isError}
-      fullWidth={fullWidth}
-      size={size}
-      variant={variant}
-      className={`${className || ""} ${
-        hasEqualValues ? "equal-values" : "different-values"
-      } ${isDirty ? "disable-visual-linked" : "linked"} ${variant}`}
-      sx={{
-        "&.linked.different-values .MuiInputBase-root:after": {
-          content: `'(${t("label.multiple")})'`,
-        },
-      }}
-      onClick={(e) => e.stopPropagation()}
+    <Field
+      data-invalid={isError}
+      onBlur={handleBlur}
+      className={cn("flex-col w-full", className)}
     >
-      <InputLabel variant={variant} required={required}>
-        {label}
-      </InputLabel>
-      <MuiSelect<V | string>
-        name={name}
-        label={label}
-        required={required}
-        fullWidth={fullWidth}
-        multiple={multiple}
-        variant={variant}
-        size={size}
-        error={isError}
-        value={state.value}
-        onChange={(e, child) => {
-          handleChange(e.target.value);
-          if (onChange !== undefined) onChange(e, child);
-        }}
-        onBlur={(e) => {
-          handleBlur();
-          if (onBlur !== undefined) onBlur(e);
-        }}
-        {...textfieldProps}
-        slotProps={{
-          input: { ...textfieldProps.slotProps?.input, required },
-          ...textfieldProps.slotProps,
-        }}
-      />
-      {(isError || helperText) && (
-        <FormHelperText>
-          {isError
-            ? errors.map((e) => e?.message || "").join(", ")
-            : helperText}
-        </FormHelperText>
+      {label && (
+        <FieldLabel htmlFor={name} aria-label={name}>
+          {label}
+        </FieldLabel>
       )}
-    </Styles>
+      <div className={cn("flex items-center gap-2", wrapperClassName)}>
+        {icon && iconPlacement === "start" && (
+          <span className="text-muted-foreground">{icon}</span>
+        )}
+        <UiSelect<V, Multiple>
+          value={state.value}
+          onValueChange={(
+            value,
+            eventDetails: SelectRootChangeEventDetails
+          ) => {
+            handleChange(value);
+            if (onValueChange !== undefined) onValueChange(value, eventDetails);
+          }}
+          {...itemProps}
+        >
+          <SelectTrigger
+            className={cn("w-full border-none ", triggerClassName)}
+          >
+            <SelectValue placeholder="Select review template" />
+          </SelectTrigger>
+          <SelectContent>{children}</SelectContent>
+        </UiSelect>
+        {icon && iconPlacement === "end" && (
+          <span className="text-muted-foreground">{icon}</span>
+        )}
+      </div>
+      {isDirty && isError && <FieldError>{errors.at(0)?.message}</FieldError>}
+    </Field>
   );
 }
-
-const Styles = styled(FormControl)`
-  &:not(.disable-visual-linked).different-values {
-    & .MuiInputBase-root {
-      &:after {
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: ${({ theme }) => theme.spacing(1.07, 1.75)};
-        text-align: left;
-        color: ${({ theme }) => theme.palette.grey[500]};
-      }
-      &.Mui-focused:after {
-        display: none;
-      }
-      &:not(.Mui-focused) {
-        & .MuiInputBase-input {
-          color: transparent;
-          opacity: 0;
-        }
-      }
-    }
-  }
-` as unknown as typeof FormControl;

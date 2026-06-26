@@ -1,6 +1,8 @@
+import babel from "@rolldown/plugin-babel";
+import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
-import react from "@vitejs/plugin-react";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 
@@ -12,27 +14,26 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": "https://xxxx.marvintest.vito.be/",
-      "/auth-api": "https://xxxx.marvintest.vito.be/",
-      "/geoserver": "https://xxxx.marvintest.vito.be/",
-      "/files": "https://xxxx.marvintest.vito.be/",
+      "/api": "http://localhost:8080",
     },
   },
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
     APP_RELEASE_DATE: JSON.stringify(pkg.config?.date ?? ""),
   },
-  resolve: {
-    tsconfigPaths: true,
-  },
+  resolve: { tsconfigPaths: true },
   plugins: [
+    {
+      name: "html-version",
+      transformIndexHtml(html: string) {
+        return html.replace("%APP_VERSION%", pkg.version);
+      },
+    },
     basicSsl(),
     svgrPlugin(),
+    tailwindcss(),
     tanstackRouter({ target: "react", autoCodeSplitting: true }),
-    react({
-      babel: {
-        plugins: [["babel-plugin-react-compiler"]],
-      },
-    }),
+    react(),
+    babel({ presets: [reactCompilerPreset()] }),
   ],
 });

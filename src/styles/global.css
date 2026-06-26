@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * BREATHFIT — Belgian Defence load-management dashboard
+ * Palette: tactical olive, gunmetal, tricolor accents (black/gold/red).
+ * Typography: Oswald (display, stencil-adjacent) + Inter (body) + JetBrains Mono (data).
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-olive: var(--olive);
+  --color-olive-deep: var(--olive-deep);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-tac-red: var(--tac-red);
+  --color-tac-green: var(--tac-green);
+  --color-tac-amber: var(--tac-amber);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+
+  --font-display: "Oswald", "Arial Narrow", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Tactical dark theme by default */
+  --background: oklch(0.18 0.012 110);
+  --foreground: oklch(0.96 0.01 90);
+
+  --panel: oklch(0.22 0.014 110); /* card surface */
+  --panel-2: oklch(0.26 0.016 110); /* elevated */
+
+  --card: var(--panel);
+  --card-foreground: var(--foreground);
+  --popover: var(--panel-2);
+  --popover-foreground: var(--foreground);
+
+  --primary: oklch(0.78 0.15 85); /* tactical gold */
+  --primary-foreground: oklch(0.18 0.012 110);
+
+  --secondary: oklch(0.32 0.03 120);
+  --secondary-foreground: var(--foreground);
+
+  --muted: oklch(0.28 0.014 110);
+  --muted-foreground: oklch(0.7 0.015 100);
+
+  --accent: oklch(0.4 0.06 120);
+  --accent-foreground: var(--foreground);
+
+  --destructive: oklch(0.58 0.21 27);
+  --destructive-foreground: oklch(0.98 0.01 90);
+
+  --border: oklch(0.34 0.012 110);
+  --input: oklch(0.3 0.014 110);
+  --ring: oklch(0.78 0.15 85);
+
+  --olive: oklch(0.42 0.06 120);
+  --olive-deep: oklch(0.3 0.05 120);
+  --gold: oklch(0.78 0.15 85);
+  --gold-deep: oklch(0.62 0.14 75);
+  --tac-red: oklch(0.62 0.22 25);
+  --tac-green: oklch(0.72 0.18 145);
+  --tac-amber: oklch(0.8 0.17 80);
+
+  --grid-line: color-mix(in oklab, var(--gold) 8%, transparent);
+  --shadow-tactical:
+    0 1px 0 0 color-mix(in oklab, var(--gold) 15%, transparent) inset,
+    0 20px 40px -20px oklch(0 0 0 / 0.6);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+}

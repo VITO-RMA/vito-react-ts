@@ -8,7 +8,7 @@
 
 #### Step 2 - Use degit to create a new project
 
-`degit https://github.com/VITO-RMA/vito-react-ts.git my-new-vite-project `
+`pnpm dlx degit https://github.com/VITO-RMA/vito-react-ts.git my-new-vite-project `
 
 #### Step 3 - Enable workspace version of typescript
 
